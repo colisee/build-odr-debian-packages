@@ -28,7 +28,6 @@ jobs:
         env:
           DEB_BUILD_OPTIONS: noautodbgsym
         with:
-          buildpackage-opts: --build=binary --no-sign
           docker-image: "debian:${{ inputs.codename }}-slim"
           host-arch: amd64
       -
@@ -37,7 +36,6 @@ jobs:
         env:
           DEB_BUILD_OPTIONS: noautodbgsym
         with:
-          buildpackage-opts: --build=binary --no-sign
           docker-image: "debian:${{ inputs.codename }}-slim"
           host-arch: arm64
       -
@@ -46,7 +44,6 @@ jobs:
         env:
           DEB_BUILD_OPTIONS: noautodbgsym
         with:
-          buildpackage-opts: --build=binary --no-sign
           docker-image: "debian:${{ inputs.codename }}-slim"
           host-arch: armhf
       -
