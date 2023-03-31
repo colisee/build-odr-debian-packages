@@ -21,7 +21,7 @@ jobs:
           github-server-url: 'https://salsa.debian.org'
           repository: ralex/${{ inputs.tool }}
           ref: 'debian/latest'
-          token: ${{ secrets.SALSA_AUDIOENC }}
+          token: ${{ secrets.SALSA }}
       -
         name: build-deb-amd64
         uses: jtdor/build-deb-action@v1
