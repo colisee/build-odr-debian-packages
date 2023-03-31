@@ -1,5 +1,10 @@
 on:
   workflow_dispatch:
+    inputs:
+      tool:
+        description: 'Opendigitalradio tool'
+        required: true
+        default: 'odr-audioenc'
 
 jobs:
   build-debs:
@@ -10,7 +15,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           github-server-url: 'https://salsa.debian.org'
-          repository: 'ralex/odr-audioenc'
+          repository: ralex/${{ inputs.tool }}
           ref: 'debian/latest'
           token: ${{ secrets.SALSA_AUDIOENC }}
       -
@@ -42,4 +47,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           path: debian/artifacts/
-          name: odr-audioenc
+          name: ${{ inputs.tool }}
