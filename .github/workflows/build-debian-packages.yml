@@ -5,6 +5,10 @@ on:
         description: 'Opendigitalradio tool'
         required: true
         default: 'odr-audioenc'
+      codename:
+        description: 'Debian codename'
+        required: true
+        default: 'sid'
 
 jobs:
   build-debs:
@@ -25,6 +29,7 @@ jobs:
           DEB_BUILD_OPTIONS: noautodbgsym
         with:
           buildpackage-opts: --build=binary --no-sign
+          docker-image: "debian:${{ inputs.codename }}-slim"
           host-arch: amd64
       -
         name: build-deb-arm64
@@ -33,6 +38,7 @@ jobs:
           DEB_BUILD_OPTIONS: noautodbgsym
         with:
           buildpackage-opts: --build=binary --no-sign
+          docker-image: "debian:${{ inputs.codename }}-slim"
           host-arch: arm64
       -
         name: build-deb-armhf
@@ -41,6 +47,7 @@ jobs:
           DEB_BUILD_OPTIONS: noautodbgsym
         with:
           buildpackage-opts: --build=binary --no-sign
+          docker-image: "debian:${{ inputs.codename }}-slim"
           host-arch: armhf
       -
         name: upload
