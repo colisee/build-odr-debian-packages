@@ -7,11 +7,14 @@ jobs:
     steps:
       -
         name: checkout
+        env:
+          PAT: ${{ secrets.SALSA_AUDIOENC }}
         uses: actions/checkout@v3
         with:
           github-server-url: 'https://salsa.debian.org'
           repository: 'ralex/odr-audioenc'
           ref: 'debian/latest'
+          token: "$PAT"
       -
         name: build-deb-amd64
         uses: jtdor/build-deb-action@v1
