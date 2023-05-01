@@ -50,6 +50,19 @@ jobs:
           buildpackage-opts: --build=binary
           host-arch: armhf
       -
+        name: Upload packages to ODR debian repository
+        uses: nicklasfrahm/scp-action@main
+        with:
+          direction: upload
+          host: ${{ secrets.SSH_HOST }}
+          fingerprint: ${{ secrets.SSH_FINGERPRINT }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          source: |
+            debian/artifacts/*.deb
+            debian/artifacts/*.changes
+          target: /home/robinalexander/incoming
+      -
         name: upload
         uses: actions/upload-artifact@v3
         with:
