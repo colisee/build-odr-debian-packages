@@ -21,7 +21,9 @@ jobs:
           github-server-url: 'https://salsa.debian.org'
           repository: ralex/${{ inputs.tool }}
           token: ${{ secrets.SALSA }}
-          fetch-depth: 0
+      -
+        name: fetch all other branches
+        run: git fetch --depth=1
       -
         name: build-deb-amd64
         uses: jtdor/build-deb-action@v1
