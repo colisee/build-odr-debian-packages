@@ -30,7 +30,7 @@ jobs:
           DEB_BUILD_OPTIONS: noautodbgsym
         with:
           docker-image: "debian:${{ inputs.codename }}-slim"
-          buildpackage-opts: --build=full
+          buildpackage-opts: --build=full --force-sign
           extra-build-deps: git gpg pristine-tar
           before-build-hook: pristine-tar checkout ../$(pristine-tar list)
           host-arch: amd64
