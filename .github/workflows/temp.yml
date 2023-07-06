@@ -24,6 +24,11 @@ jobs:
           ref: debian/latest
           fetch-depth: '0'
       -
+        name: import gpg key
+        run: |
+          apt-get update && apt-get install -y gpg;
+          gpg --import ${{ secrets.GPG_PRIVATE_KEY }} < ${{ secrets.GPG_PASSPHRASE }}
+      -
         name: build-deb-amd64
         uses: jtdor/build-deb-action@v1
         env:
