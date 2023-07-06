@@ -30,7 +30,7 @@ jobs:
         with:
           docker-image: "debian:${{ inputs.codename }}-slim"
           buildpackage-opts: --build=full
-          extra-build-deps: pristine-tar
+          extra-build-deps: pristine-tar git
           before-build-hook: pristine-tar checkout ../$(pristine-tar list)
           host-arch: amd64
       -
