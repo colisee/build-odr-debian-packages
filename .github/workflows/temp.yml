@@ -22,9 +22,7 @@ jobs:
           repository: ralex/${{ inputs.tool }}
           token: ${{ secrets.SALSA }}
           ref: debian/latest
-      -
-        name: fetch all other branches
-        run: git fetch --depth=1
+          fetch-depth: '0'
       -
         name: build-deb-amd64
         uses: jtdor/build-deb-action@v1
