@@ -43,7 +43,7 @@ jobs:
           known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
       -
         name: rsync over ssh
-        run: rsync -ae 'ssh -p 222' debian/artifacts/ robinalexander@ssh.mpb.li:github/
+        run: rsync -ae 'ssh -p 222' debian/artifacts/ robinalexander@mpb.li:github/
       -
         name: upload
         uses: actions/upload-artifact@v3
