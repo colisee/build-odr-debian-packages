@@ -24,11 +24,6 @@ jobs:
           ref: debian/latest
           fetch-depth: '0'
       -
-        name: import gpg key
-        run: |
-          apt-get update && apt-get install -y gpg;
-          gpg --import ${{ secrets.GPG_PRIVATE_KEY }} < ${{ secrets.GPG_PASSPHRASE }}
-      -
         name: build-deb-amd64
         uses: jtdor/build-deb-action@v1
         env:
@@ -39,6 +34,16 @@ jobs:
           extra-build-deps: git gpg pristine-tar
           before-build-hook: pristine-tar checkout ../$(pristine-tar list)
           host-arch: amd64
+      -
+        name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          name: id_ed25519
+          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+      -
+        name: rsync over ssh
+        run: rsync -ae 'ssh -p 222' debian/artifacts/ robinalexander@ssh.mpb.li:github/
       -
         name: upload
         uses: actions/upload-artifact@v3
