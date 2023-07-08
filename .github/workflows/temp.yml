@@ -13,6 +13,9 @@ on:
 jobs:
   build-debs:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: [amd64, arm64, armhf]
     steps:
       -
         name: checkout
@@ -24,7 +27,7 @@ jobs:
           ref: debian/latest
           fetch-depth: '0'
       -
-        name: build-deb-amd64
+        name: build-deb
         uses: jtdor/build-deb-action@v1
         env:
           DEB_BUILD_OPTIONS: noautodbgsym
@@ -33,7 +36,7 @@ jobs:
           buildpackage-opts: --build=full --force-sign
           extra-build-deps: git gpg pristine-tar
           before-build-hook: pristine-tar checkout ../$(pristine-tar list)
-          host-arch: amd64
+          host-arch: ${{ matrix.arch }}
       -
         name: Install SSH Key
         uses: shimataro/ssh-key-action@v2
